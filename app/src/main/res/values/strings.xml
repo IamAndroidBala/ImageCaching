@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">ImageCaching</string>
-    <string name="welcome"> Welcome</string>
-
-    <string name="font_family">sans-serif-thin</string>
+    <string name="app_name">    ImageCaching</string>
+    <string name="welcome">     Welcome</string>
+    <string name="error">       An error occurred. Retry later</string>
+    <string name="font_family"> sans-serif-thin</string>
 </resources>

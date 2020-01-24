@@ -1,4 +1,4 @@
-package com.android.imagecaching.ui.imageloadingscreen
+package com.android.imagecaching.ui.homescreen
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.imagecaching.R
 import com.android.imagecaching.imageloader.ImageLoader
+import com.android.imagecaching.model.ImageModel
 import kotlinx.android.synthetic.main.item_inage_holder.view.*
 
 class ImageListAdapter (private val mContext : Context, private var mList : ArrayList<ImageModel>) : RecyclerView.Adapter<ImageListAdapter.ViewHolder>() {
@@ -32,9 +33,15 @@ class ImageListAdapter (private val mContext : Context, private var mList : Arra
 
         fun onBindItem(imageData : ImageModel) {
 
-            imgLoader!!.displayImage(imageData.image, itemView.imgCaching)
+            imageData.user?.profile_image?.large?.let { imgLoader!!.displayImage(imageData.user?.profile_image?.large!!, itemView.imgCaching) }
 
         }
 
     }
+
+    fun setData(data : List<ImageModel>) {
+        mList.addAll(data)
+        notifyDataSetChanged()
+    }
+
 }

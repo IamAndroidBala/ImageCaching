@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.imagecaching.ui.imageloadingscreen.ImageListActivity" />
+        <activity android:name="com.android.imagecaching.ui.homescreen.ImageListActivity" />
 
     </application>
 

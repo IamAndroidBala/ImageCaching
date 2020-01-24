@@ -6,6 +6,17 @@
     android:padding="10dp"
     android:layout_height="match_parent">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar_wait"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

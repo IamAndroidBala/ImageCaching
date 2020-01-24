@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.android.imagecaching.R
-import com.android.imagecaching.ui.imageloadingscreen.ImageListActivity
+import com.android.imagecaching.ui.homescreen.ImageListActivity
 
 /**
  * Show the welcome message for 2 sec then go to Main activity
