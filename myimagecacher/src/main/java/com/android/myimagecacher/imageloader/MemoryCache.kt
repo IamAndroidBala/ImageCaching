@@ -1,8 +1,7 @@
-package com.android.imagecaching.imageloader
+package com.android.myimagecacher.imageloader
 
 import android.graphics.Bitmap
 import android.util.Log
-import com.android.imagecaching.utils.AppLog
 import java.util.*
 
 class MemoryCache {
@@ -12,13 +11,12 @@ class MemoryCache {
 
     private fun setLimit(new_limit: Long) {
         limit = new_limit
-        AppLog.d("MemoryCache will use up to " + limit / 1024.0 / 1024.0 + "MB")
+        Log.d("MyLogs","MemoryCache will use up to " + limit / 1024.0 / 1024.0 + "MB")
     }
 
     operator fun get(id: String?): Bitmap? {
         return try {
             if (!cache.containsKey(id)) null else cache[id]
-            //NullPointerException sometimes happen here http://code.google.com/p/osmdroid/issues/detail?id=78
         } catch (ex: NullPointerException) {
             ex.printStackTrace()
             null
@@ -38,7 +36,7 @@ class MemoryCache {
 
     private fun checkSize() {
 
-        AppLog.d("cache size=" + size + " length=" + cache.size)
+        Log.d("MyLogs","cache size=" + size + " length=" + cache.size)
 
         if (size > limit) {
             val iter: MutableIterator<Map.Entry<String, Bitmap?>> =
@@ -49,7 +47,7 @@ class MemoryCache {
                 iter.remove()
                 if (size <= limit) break
             }
-            AppLog.d("Clean cache. New size " + cache.size)
+            Log.d("MyLogs","Clean cache. New size " + cache.size)
         }
     }
 

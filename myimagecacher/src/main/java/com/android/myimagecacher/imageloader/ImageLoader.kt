@@ -1,12 +1,12 @@
-package com.android.imagecaching.imageloader
+package com.android.myimagecacher.imageloader
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.ImageView
-import com.android.imagecaching.R
-import com.android.imagecaching.imageloader.Utils.copyStream
+import com.android.myimagecacher.R
+import com.android.myimagecacher.imageloader.Utils.copyStream
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -44,8 +44,7 @@ class ImageLoader(context: Context?) {
             ?: try {
                 var bitmap: Bitmap? = null
                 val imageUrl = URL(url)
-                val conn =
-                    imageUrl.openConnection() as HttpURLConnection
+                val conn = imageUrl.openConnection() as HttpURLConnection
                 conn.connectTimeout = 30000
                 conn.readTimeout = 30000
                 conn.instanceFollowRedirects = true
@@ -65,19 +64,22 @@ class ImageLoader(context: Context?) {
 
     //decodes image and scales it to reduce memory consumption
     private fun decodeFile(f: File): Bitmap? {
-        try { //decode image size
+        try {
+            //decode image size
             val o = BitmapFactory.Options()
             o.inJustDecodeBounds = true
             BitmapFactory.decodeStream(FileInputStream(f), null, o)
+
             //Find the correct scale value. It should be the power of 2.
             val REQUIRED_SIZE = 70
-            var width_tmp = o.outWidth
-            var height_tmp = o.outHeight
+            var widthTmp  = o.outWidth
+            var heightTmp = o.outHeight
             var scale = 1
+
             while (true) {
-                if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE) break
-                width_tmp /= 2
-                height_tmp /= 2
+                if (widthTmp / 2 < REQUIRED_SIZE || heightTmp / 2 < REQUIRED_SIZE) break
+                widthTmp /= 2
+                heightTmp /= 2
                 scale *= 2
             }
             //decode with inSampleSize

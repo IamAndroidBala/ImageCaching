@@ -1,4 +1,4 @@
-package com.android.imagecaching.imageloader
+package com.android.myimagecacher.imageloader
 
 import java.io.InputStream
 import java.io.OutputStream

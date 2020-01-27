@@ -3,4 +3,6 @@
     <dimen name="text_heading">     22sp </dimen>
     <dimen name="text_sub_heading"> 20sp </dimen>
     <dimen name="text_content">     16sp </dimen>
+
+    <dimen name="common_spacing_5"> 5dp</dimen>
 </resources>

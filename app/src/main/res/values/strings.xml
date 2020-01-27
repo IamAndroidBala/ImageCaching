@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">    ImageCaching</string>
-    <string name="welcome">     Welcome</string>
-    <string name="error">       An error occurred. Retry later</string>
-    <string name="font_family"> sans-serif-thin</string>
+    <string name="app_name">        ImageCaching</string>
+    <string name="welcome">         Welcome</string>
+    <string name="error">           An error occurred. Retry later</string>
+    <string name="user_profile">    User Profile Image</string>
+    <string name="profile">         Profile</string>
+    <string name="offline_warning"> You are offline now, Please make sure you have mobile data or WiFi</string>
 </resources>

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.android.imagecaching.R
-import com.android.imagecaching.ui.homescreen.ImageListActivity
+import com.android.imagecaching.ui.homescreen.UserListActivity
 
 /**
  * Show the welcome message for 2 sec then go to Main activity
@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             startActivity(Intent(this@SplashScreenActivity,
-                ImageListActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                UserListActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 finish()
             })},2000)
 

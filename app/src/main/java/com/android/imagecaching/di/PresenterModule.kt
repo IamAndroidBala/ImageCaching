@@ -1,8 +1,8 @@
 package com.android.imagecaching.di
 
 import com.android.imagecaching.network.GetImageList
-import com.android.imagecaching.ui.homescreen.ImageLoadingPresenter
-import com.android.imagecaching.ui.homescreen.ImageLoadingPresenterImpl
+import com.android.imagecaching.ui.homescreen.UserListLoadingPresenter
+import com.android.imagecaching.ui.homescreen.UserListLoadingPresenterImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,6 +12,6 @@ class PresenterModule {
 
     @Provides
     @Singleton
-    fun provideImageLoadingPresenter(getImageList: GetImageList) : ImageLoadingPresenterImpl = ImageLoadingPresenter(getImageList)
+    fun provideImageLoadingPresenter(getImageList: GetImageList) : UserListLoadingPresenterImpl = UserListLoadingPresenter(getImageList)
 
 }

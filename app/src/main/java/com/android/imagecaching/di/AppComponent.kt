@@ -1,6 +1,6 @@
 package com.android.imagecaching.di
 
-import com.android.imagecaching.ui.homescreen.ImageListActivity
+import com.android.imagecaching.ui.homescreen.UserListActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -8,6 +8,6 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, PresenterModule::class, NetworkModule::class, ApiModule::class])
 interface AppComponent {
 
-    fun inject(target : ImageListActivity)
+    fun inject(target : UserListActivity)
 
 }
