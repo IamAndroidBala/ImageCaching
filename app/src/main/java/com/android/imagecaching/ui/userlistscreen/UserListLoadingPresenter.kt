@@ -1,14 +1,14 @@
-package com.android.imagecaching.ui.homescreen
+package com.android.imagecaching.ui.userlistscreen
 
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.network.ApiInterface
-import com.android.imagecaching.network.GetImageList
+import com.android.imagecaching.network.GetUserList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class UserListLoadingPresenter @Inject constructor(private val getImageList: GetImageList) : UserListLoadingPresenterImpl {
+class UserListLoadingPresenter @Inject constructor(private val getImageList: GetUserList) : UserListLoadingPresenterImpl {
 
     lateinit var imageLoadingViews: UserLoadingViews
 

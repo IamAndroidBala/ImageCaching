@@ -1,6 +1,6 @@
 package com.android.imagecaching.di
 
-import com.android.imagecaching.ui.homescreen.UserListActivity
+import com.android.imagecaching.ui.userlistscreen.UserListActivity
 import dagger.Component
 import javax.inject.Singleton
 

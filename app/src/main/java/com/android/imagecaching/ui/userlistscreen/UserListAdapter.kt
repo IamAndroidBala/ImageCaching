@@ -1,4 +1,4 @@
-package com.android.imagecaching.ui.homescreen
+package com.android.imagecaching.ui.userlistscreen
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import com.android.imagecaching.R
 import com.android.myimagecacher.imageloader.ImageLoader
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.profilescreen.UserProfileActivity
+import com.android.imagecaching.utils.AppLog
 import kotlinx.android.synthetic.main.item_inage_holder.view.*
 
 class UserListAdapter (private val mContext : Context, private var mList : ArrayList<UserListModel>) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
@@ -35,13 +36,15 @@ class UserListAdapter (private val mContext : Context, private var mList : Array
 
         fun onBindItem( data : UserListModel) {
 
-            data.user?.profile_image?.large?.let { imgLoader!!.displayImage(data.user?.profile_image?.large!!, itemView.imgCaching) }
+            data.user?.profile_image?.large?.let { imgLoader!!.displayImage(data.user?.profile_image?.large!!, itemView.imgCaching, itemView.progressImageLoading) }
 
             itemView.setOnClickListener {
-                mContext.startActivity(Intent(mContext, UserProfileActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    putExtra("UserData",data )
-                })
+                data.user?.id?.let {
+                    mContext.startActivity(Intent(mContext, UserProfileActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        putExtra("UserData",data )
+                    })
+                }
             }
 
         }

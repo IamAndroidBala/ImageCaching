@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import com.android.myimagecacher.R
 import com.android.myimagecacher.imageloader.Utils.copyStream
 import java.io.*
@@ -22,17 +24,17 @@ class ImageLoader(context: Context?) {
     val stubId = R.mipmap.ic_launcher
     private val imageViews = Collections.synchronizedMap(WeakHashMap<ImageView, String>())
 
-    fun displayImage(url: String, imageView: ImageView) {
+    fun displayImage(url: String, imageView: ImageView, progressBar: ProgressBar) {
         imageViews[imageView] = url
         val bitmap = memoryCache[url]
         if (bitmap != null) imageView.setImageBitmap(bitmap) else {
-            queuePhoto(url, imageView)
+            queuePhoto(url, imageView, progressBar)
             imageView.setImageResource(stubId)
         }
     }
 
-    private fun queuePhoto(url: String, imageView: ImageView) {
-        val p = PhotoToLoad(url, imageView)
+    private fun queuePhoto(url: String, imageView: ImageView, progressBar: ProgressBar) {
+        val p = PhotoToLoad(url, imageView,progressBar)
         executorService.submit(PhotosLoader(p))
     }
 
@@ -91,34 +93,45 @@ class ImageLoader(context: Context?) {
     }
 
     //Task for the queue
-    inner class PhotoToLoad(var url: String, var imageView: ImageView)
+    inner class PhotoToLoad(var url: String, var imageView: ImageView, var progressBar: ProgressBar)
 
     internal inner class PhotosLoader(var photoToLoad: PhotoToLoad) : Runnable {
         override fun run() {
-            if (imageViewReused(photoToLoad)) return
+            if (imageViewReused(photoToLoad))
+                return
+
             val bmp = getBitmap(photoToLoad.url)
             memoryCache.put(photoToLoad.url, bmp)
-            if (imageViewReused(photoToLoad)) return
-            val bd = BitmapDisplayer(bmp, photoToLoad)
-            val a = photoToLoad.imageView.context as Activity
+
+            if (imageViewReused(photoToLoad))
+                return
+
+            val bd = BitmapDisplay(bmp, photoToLoad)
+            val a  = photoToLoad.imageView.context as Activity
             a.runOnUiThread(bd)
         }
-
     }
 
     fun imageViewReused(photoToLoad: PhotoToLoad): Boolean {
         val tag = imageViews[photoToLoad.imageView]
+        photoToLoad.progressBar.visibility = View.GONE
         return if (tag == null || tag != photoToLoad.url) true else false
     }
 
     //Used to display bitmap in the UI thread
-    internal inner class BitmapDisplayer(var bitmap: Bitmap?, var photoToLoad: PhotoToLoad) :
-        Runnable {
+    internal inner class BitmapDisplay(var bitmap: Bitmap?, var photoToLoad: PhotoToLoad) : Runnable {
+
         override fun run() {
+
+            photoToLoad.progressBar.visibility = View.GONE
+
             if (imageViewReused(photoToLoad)) return
-            if (bitmap != null) photoToLoad.imageView.setImageBitmap(bitmap) else photoToLoad.imageView.setImageResource(
-                stubId
-            )
+
+            if (bitmap != null)
+                photoToLoad.imageView.setImageBitmap(bitmap)
+            else
+                photoToLoad.imageView.setImageResource(stubId)
+
         }
 
     }

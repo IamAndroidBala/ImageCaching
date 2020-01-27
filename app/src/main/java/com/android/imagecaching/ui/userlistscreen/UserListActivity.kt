@@ -1,8 +1,9 @@
-package com.android.imagecaching.ui.homescreen
+package com.android.imagecaching.ui.userlistscreen
 
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.imagecaching.ImageCacherApplication
 import com.android.imagecaching.R
@@ -27,14 +28,33 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
 
         (application as ImageCacherApplication).appComponent.inject(this)
 
-        imageLoaderPresenter.setPage(this)
-        imageLoaderPresenter.setLoading()
+        if(permissionsGranted(permissionsStorage)) {
+           initPage()
+        } else {
+           askPermission()
+        }
 
         imageListAdapter = UserListAdapter(this@UserListActivity, mList)
         recyclerImageList.adapter = imageListAdapter
 
         setLayoutConfig()
 
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            36 -> if(permissionsGranted(permissionsStorage))  initPage() else askPermission()
+        }
+    }
+
+    private fun initPage() {
+        imageLoaderPresenter.setPage(this)
+        imageLoaderPresenter.setLoading()
+    }
+
+    private fun askPermission() {
+        ActivityCompat.requestPermissions(this, permissionsStorage, 36)
     }
 
     override fun showMessage(isConnected: Boolean) {
@@ -50,7 +70,6 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
     private fun setLayoutConfig() {
 
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //recyclerImageList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             //recyclerImageList.layoutManager = LinearLayoutManager(this)
             recyclerImageList.layoutManager = GridLayoutManager(this, 2)
         } else {

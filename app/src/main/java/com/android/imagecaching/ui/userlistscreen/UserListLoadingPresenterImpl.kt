@@ -1,4 +1,4 @@
-package com.android.imagecaching.ui.homescreen
+package com.android.imagecaching.ui.userlistscreen
 
 interface UserListLoadingPresenterImpl {
 

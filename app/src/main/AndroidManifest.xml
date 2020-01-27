@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.imagecaching.ui.homescreen.UserListActivity" />
+        <activity android:name="com.android.imagecaching.ui.userlistscreen.UserListActivity" />
 
         <activity android:name="com.android.imagecaching.ui.profilescreen.UserProfileActivity" />
 

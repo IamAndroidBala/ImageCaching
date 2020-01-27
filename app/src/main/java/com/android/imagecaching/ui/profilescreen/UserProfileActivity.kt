@@ -1,16 +1,21 @@
 package com.android.imagecaching.ui.profilescreen
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.android.imagecaching.R
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.BaseActivity
+import com.android.imagecaching.utils.AppLog
+import com.android.myimagecacher.imageloader.ImageLoader
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : BaseActivity() {
 
-    lateinit var userListModel: UserListModel
+    private lateinit var userListModel: UserListModel
     private var mSnackBar   : Snackbar? = null
+    private lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +25,13 @@ class UserProfileActivity : BaseActivity() {
             userListModel = intent?.extras?.getParcelable("UserData")!!
         }
 
+        imageLoader = ImageLoader(this)
+
         userListModel.user?.name?.let { getToolbar(userListModel.user?.name!!) } ?: getToolbar(resources.getString(R.string.profile))
+
+        imageLoader.displayImage(userListModel.user?.profile_image?.large!!,imageUserProfile,progressProfileImageLoading)
+
+        tvProfileName.text = userListModel.user?.name
 
     }
 
@@ -34,6 +45,13 @@ class UserProfileActivity : BaseActivity() {
             mSnackBar?.dismiss()
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
