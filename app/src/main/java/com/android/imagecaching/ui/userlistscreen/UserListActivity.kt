@@ -6,17 +6,16 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.imagecaching.ImageCacherApplication
 import com.android.imagecaching.R
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.BaseActivity
-import com.android.imagecaching.utils.AppLog
 import com.android.imagecaching.utils.PaginationListener
 import com.android.imagecaching.utils.errorDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+
 
 class UserListActivity : BaseActivity(), UserLoadingViews {
 
@@ -141,5 +140,7 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
             R.string.error.errorDialog(this@UserListActivity)
         }
     }
+
+
 
 }

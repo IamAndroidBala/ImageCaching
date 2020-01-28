@@ -10,8 +10,7 @@ import com.android.imagecaching.R
 import com.android.myimagecacher.imageloader.ImageLoader
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.profilescreen.UserProfileActivity
-import com.android.imagecaching.utils.AppLog
-import kotlinx.android.synthetic.main.item_inage_holder.view.*
+import kotlinx.android.synthetic.main.item_image_holder.view.*
 
 class UserListAdapter (private val mContext : Context, private var mList : ArrayList<UserListModel>) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
@@ -22,7 +21,7 @@ class UserListAdapter (private val mContext : Context, private var mList : Array
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_inage_holder,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image_holder,parent,false)
         return ViewHolder(view)
     }
 

@@ -30,7 +30,9 @@ android {
     }
 
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
 }
@@ -57,18 +59,16 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$gson"
     implementation "de.hdodenhof:circleimageview:$circleimageciew"
 
-    implementation "org.permissionsdispatcher:permissionsdispatcher:$permission_dispatcher"
-    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$permission_dispatcher"
-
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'androidx.test:core:' + rootProject.coreVersion
-    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
-    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
+//    testImplementation 'androidx.test:core:' + rootProject.coreVersion
+//    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
+//    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
+//    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
+//    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
     testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
 
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

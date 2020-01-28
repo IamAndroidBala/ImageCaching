@@ -7,6 +7,12 @@
     android:background="@color/colorTransparent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_image_holder"
+        android:id="@+id/recyclerUserList"/>
+
     <ProgressBar
         android:id="@+id/progressBar_wait"
         style="?android:attr/progressBarStyleLarge"
@@ -15,12 +21,6 @@
         android:layout_gravity="center"
         android:layout_centerVertical="true"
         android:indeterminate="true"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_inage_holder"
-        android:id="@+id/recyclerUserList"/>
+        android:visibility="visible" />
 
 </RelativeLayout>
