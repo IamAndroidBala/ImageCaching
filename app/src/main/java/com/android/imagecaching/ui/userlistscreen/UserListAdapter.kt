@@ -36,6 +36,8 @@ class UserListAdapter (private val mContext : Context, private var mList : Array
 
         fun onBindItem( data : UserListModel) {
 
+            data.user?.name?.let { itemView.tvUserName.text = data.user?.name }
+            data.likes?.let { itemView.tvUserLikes.text = "${data.likes}" }?: kotlin.run { itemView.tvUserLikes.text = "0" }
             data.user?.profile_image?.large?.let { imgLoader!!.displayImage(data.user?.profile_image?.large!!, itemView.imgCaching, itemView.progressImageLoading) }
 
             itemView.setOnClickListener {

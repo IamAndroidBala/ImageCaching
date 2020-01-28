@@ -21,6 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_inage_holder"
-        android:id="@+id/recyclerImageList"/>
+        android:id="@+id/recyclerUserList"/>
 
 </RelativeLayout>

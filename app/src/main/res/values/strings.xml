@@ -6,6 +6,7 @@
     <string name="profile">         Profile</string>
     <string name="allow">           Allow</string>
     <string name="deny">            Deny</string>
+    <string name="user_name">       User Name</string>
     <string name="permission_storage"> External storage permission is needed</string>
     <string name="offline_warning"> You are offline now, Please make sure you have mobile data or WiFi</string>
 </resources>

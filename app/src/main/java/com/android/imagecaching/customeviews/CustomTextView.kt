@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.android.imagecaching.R
 
@@ -33,6 +34,7 @@ class CustomTextView : TextView {
             val customView = context.obtainStyledAttributes(attrs, R.styleable.CustomTextView)
             val customFont = ResourcesCompat.getFont(context, R.font.sukhumvitset_text)
             textSize = 25f
+            maxLines = 2
             typeface = customFont
             customView.recycle()
         }

@@ -5,21 +5,30 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.imagecaching.ImageCacherApplication
 import com.android.imagecaching.R
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.BaseActivity
+import com.android.imagecaching.utils.AppLog
+import com.android.imagecaching.utils.PaginationListener
 import com.android.imagecaching.utils.errorDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-
 class UserListActivity : BaseActivity(), UserLoadingViews {
+
+    var isLoad      = false
+    var isLast      = false
+    var totalPage   = 1
+    var currentPage = PaginationListener.PAGE_START
 
     var mList = ArrayList<UserListModel>()
     private var mSnackBar   : Snackbar? = null
-    lateinit var imageListAdapter   : UserListAdapter
+    lateinit var userListAdapter   : UserListAdapter
+    lateinit var layoutManager: LinearLayoutManager
     @Inject lateinit var imageLoaderPresenter : UserListLoadingPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +43,35 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
            askPermission()
         }
 
-        imageListAdapter = UserListAdapter(this@UserListActivity, mList)
-        recyclerImageList.adapter = imageListAdapter
+        layoutManager   = LinearLayoutManager(this)
+        recyclerUserList.layoutManager = layoutManager
+        userListAdapter = UserListAdapter(this@UserListActivity, mList)
+        recyclerUserList.adapter = userListAdapter
 
-        setLayoutConfig()
+        recyclerUserList.addOnScrollListener(object : PaginationListener(layoutManager) {
+
+            override fun loadMoreItems() {
+
+                isLoad = true
+                currentPage ++
+
+                if (currentPage != PAGE_START){
+                    if (currentPage < totalPage) {
+                        imageLoaderPresenter.setLoading()
+                    } else {
+                        isLast = true
+                    }
+                }
+
+            }
+
+            override val isLastPage: Boolean
+                get() = isLast
+
+            override val isLoading: Boolean
+                get() = isLoad
+
+        })
 
     }
 
@@ -70,10 +104,10 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
     private fun setLayoutConfig() {
 
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //recyclerImageList.layoutManager = LinearLayoutManager(this)
-            recyclerImageList.layoutManager = GridLayoutManager(this, 2)
+            //recyclerUserList.layoutManager = LinearLayoutManager(this)
+            recyclerUserList.layoutManager = GridLayoutManager(this, 2)
         } else {
-            recyclerImageList.layoutManager = GridLayoutManager(this, 3)
+            recyclerUserList.layoutManager = GridLayoutManager(this, 3)
         }
 
     }
@@ -81,23 +115,25 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
     override fun displayLoading() {
         progressBar_wait.post {
             progressBar_wait.visibility = View.VISIBLE
-            recyclerImageList.visibility = View.GONE
+            recyclerUserList.visibility = View.GONE
         }
     }
 
     override fun dismissLoading() {
         progressBar_wait.post {
             progressBar_wait.visibility = View.GONE
-            recyclerImageList.visibility = View.VISIBLE
+            recyclerUserList.visibility = View.VISIBLE
         }
     }
 
     override fun displayResult(result : List<UserListModel>?) {
+
         result?.let {
-            recyclerImageList.post {
-                imageListAdapter.setData(result)
+            recyclerUserList.post {
+                userListAdapter.setData(result)
             }
         }
+
     }
 
     override fun displayError(error : String?) {
