@@ -11,6 +11,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
+/**
+ * profile screen
+ * receive data from UserListAdapter
+ */
 class UserProfileActivity : BaseActivity() {
 
     private lateinit var userListModel: UserListModel
@@ -37,18 +41,23 @@ class UserProfileActivity : BaseActivity() {
 
     }
 
+    /**
+     * showing network connection status
+     */
     override fun showMessage(isConnected: Boolean) {
 
         if (!isConnected) {
             val messageToUser = resources.getString(R.string.offline_warning)
-            mSnackBar = Snackbar.make(rlSample, messageToUser, Snackbar.LENGTH_LONG)
+            mSnackBar = Snackbar.make(rlProfilePage, messageToUser, Snackbar.LENGTH_LONG)
             mSnackBar?.show()
-        } else {
-            mSnackBar?.dismiss()
         }
 
     }
 
+
+    /**
+     * back button operation
+     */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> onBackPressed()

@@ -7,6 +7,9 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
+/**
+ * presenter module
+ */
 @Module
 class PresenterModule {
 

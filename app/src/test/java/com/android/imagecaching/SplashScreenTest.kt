@@ -10,8 +10,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
+import org.robolectric.shadows.ShadowActivity
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -39,8 +39,12 @@ class SplashScreenTest {
     @Throws(Exception::class)
     fun goToMainScreen() {
 
-        val intent: Intent = Shadows.shadowOf(splashScreenActivity).nextStartedActivity
-        Assert.assertEquals(UserListActivity::class.java.canonicalName, intent.component?.className)
+        val expectedIntent = Intent(splashScreenActivity, UserListActivity::class.java)
+
+        val shadowActivity: ShadowActivity = Shadows.shadowOf(splashScreenActivity)
+        val actualIntent = shadowActivity.nextStartedActivity
+
+        Assert.assertTrue(actualIntent.filterEquals(expectedIntent))
 
     }
 

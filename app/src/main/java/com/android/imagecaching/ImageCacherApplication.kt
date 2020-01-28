@@ -25,8 +25,14 @@ class ImageCacherApplication : Application() {
 
     }
 
+    /**
+     * init dagger 2
+     */
     private fun initDagger(app: ImageCacherApplication): AppComponent = DaggerAppComponent.builder().appModule(AppModule(app)).build()
 
+    /**
+     * used to check the internet available or not
+     */
     fun hasNetwork(context: Context): Boolean? {
         var isConnected: Boolean? = false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

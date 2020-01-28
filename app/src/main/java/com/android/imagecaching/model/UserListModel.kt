@@ -16,4 +16,4 @@ data class UserListModel (var id  : String,
                           var current_user_collections : @RawValue Any?,
                           var urls : UrlsModel?,
                           var categories : List<CategoriesModel>?,
-                          var links : LinksModel) : Parcelable {}
+                          var links : LinksModel?) : Parcelable {}

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/common_spacing_5"
+    android:id="@+id/rlProfilePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,10 +38,11 @@
         android:id="@+id/tvProfileName"/>
 
     <com.android.imagecaching.customeviews.CustomTextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvProfileName"
         android:layout_marginTop="@dimen/common_spacing_5"
+        android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/ic_like_20dp"
         android:id="@+id/tvProfileLikes"/>
 

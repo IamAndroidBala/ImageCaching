@@ -12,6 +12,9 @@ import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.profilescreen.UserProfileActivity
 import kotlinx.android.synthetic.main.item_image_holder.view.*
 
+/**
+ * populating the user details
+ */
 class UserListAdapter (private val mContext : Context, private var mList : ArrayList<UserListModel>) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     private var imgLoader: ImageLoader? = null

@@ -9,6 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.android.imagecaching.R
 
+/**
+ * custom textview with custom font
+ * set the property whatever you want/wish
+ */
 
 class CustomTextView : TextView {
 

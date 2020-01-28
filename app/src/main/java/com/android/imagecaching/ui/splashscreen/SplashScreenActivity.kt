@@ -20,7 +20,10 @@ class SplashScreenActivity : AppCompatActivity() {
 
     }
 
-    fun goToHomeScreenActivity() {
+    /**
+     * delay 2sec then go to main screen
+     */
+    private fun goToHomeScreenActivity() {
         Handler().postDelayed({
             startActivity(Intent(this@SplashScreenActivity,
                 UserListActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

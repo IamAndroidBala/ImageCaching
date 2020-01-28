@@ -63,11 +63,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
 
     testImplementation 'junit:junit:4.12'
-//    testImplementation 'androidx.test:core:' + rootProject.coreVersion
+    testImplementation 'androidx.test:core:' + rootProject.coreVersion
 //    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
 //    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
 //    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
 //    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
+
     testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
 
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'

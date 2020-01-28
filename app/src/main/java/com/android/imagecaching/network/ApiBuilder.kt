@@ -9,6 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * common api builder
+ * can be accessed from anywhere in this module
+ */
 @Singleton
 class ApiBuilder @Inject constructor() {
 

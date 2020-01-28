@@ -1,10 +1,8 @@
 package com.android.imagecaching.ui.userlistscreen
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.imagecaching.ImageCacherApplication
 import com.android.imagecaching.R
@@ -16,7 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-
+/**
+ * user list activity
+ * call the api and display the users data in recyclerview
+ */
 class UserListActivity : BaseActivity(), UserLoadingViews {
 
     var isLoad      = false
@@ -36,17 +37,14 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
 
         (application as ImageCacherApplication).appComponent.inject(this)
 
-        if(permissionsGranted(permissionsStorage)) {
-           initPage()
-        } else {
-           askPermission()
-        }
-
         layoutManager   = LinearLayoutManager(this)
         recyclerUserList.layoutManager = layoutManager
         userListAdapter = UserListAdapter(this@UserListActivity, mList)
         recyclerUserList.adapter = userListAdapter
 
+        /**
+         * pagination listener
+         */
         recyclerUserList.addOnScrollListener(object : PaginationListener(layoutManager) {
 
             override fun loadMoreItems() {
@@ -74,6 +72,9 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
 
     }
 
+    /**
+     * permission listener
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -81,36 +82,39 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
         }
     }
 
+    /**
+     * setup the page
+     */
     private fun initPage() {
         imageLoaderPresenter.setPage(this)
         imageLoaderPresenter.setLoading()
     }
 
+    /**
+     * request the external storage permission if not granted
+     */
     private fun askPermission() {
         ActivityCompat.requestPermissions(this, permissionsStorage, 36)
     }
 
+    /**
+     * show snackbar when no internet
+     */
     override fun showMessage(isConnected: Boolean) {
+
         if (!isConnected) {
             val messageToUser = resources.getString(R.string.offline_warning)
             mSnackBar = Snackbar.make(rlSample, messageToUser, Snackbar.LENGTH_LONG)
             mSnackBar?.show()
-        } else {
-           initPage()
         }
-    }
 
-    private fun setLayoutConfig() {
-
-        if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //recyclerUserList.layoutManager = LinearLayoutManager(this)
-            recyclerUserList.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            recyclerUserList.layoutManager = GridLayoutManager(this, 3)
-        }
+        if(permissionsGranted(permissionsStorage)) initPage() else askPermission()
 
     }
 
+    /**
+     * display progressbar
+     */
     override fun displayLoading() {
         progressBar_wait.post {
             progressBar_wait.visibility = View.VISIBLE
@@ -118,6 +122,9 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
         }
     }
 
+    /**
+     * dismiss progressbar and show recyclerview
+     */
     override fun dismissLoading() {
         progressBar_wait.post {
             progressBar_wait.visibility = View.GONE
@@ -125,6 +132,9 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
         }
     }
 
+    /**
+     * get result from api and set to adapter
+     */
     override fun displayResult(result : List<UserListModel>?) {
 
         result?.let {
@@ -135,12 +145,13 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
 
     }
 
+    /**
+     * show the error msg in dialog
+     */
     override fun displayError(error : String?) {
         runOnUiThread {
             R.string.error.errorDialog(this@UserListActivity)
         }
     }
-
-
 
 }
