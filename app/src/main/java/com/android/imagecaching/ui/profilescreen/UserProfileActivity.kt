@@ -29,9 +29,11 @@ class UserProfileActivity : BaseActivity() {
 
         userListModel.user?.name?.let { getToolbar(userListModel.user?.name!!) } ?: getToolbar(resources.getString(R.string.profile))
 
-        imageLoader.displayImage(userListModel.user?.profile_image?.large!!,imageUserProfile,progressProfileImageLoading)
+        userListModel.user?.profile_image?.large?.let { imageLoader.displayImage(userListModel.user?.profile_image?.large!!,imageUserProfile,progressProfileImageLoading) }
 
-        tvProfileName.text = userListModel.user?.name
+        userListModel.user?.name?.let {  tvProfileName.text = userListModel.user?.name }
+
+        userListModel.likes?.let { tvProfileLikes.text = "${userListModel.likes}" }
 
     }
 

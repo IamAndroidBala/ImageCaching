@@ -96,7 +96,7 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
             mSnackBar = Snackbar.make(rlSample, messageToUser, Snackbar.LENGTH_LONG)
             mSnackBar?.show()
         } else {
-            mSnackBar?.dismiss()
+           initPage()
         }
     }
 
