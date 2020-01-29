@@ -9,4 +9,6 @@ I have created a module for caching images from API. This module can be accessed
 val imageLoader = ImageLoader(this)
 imageLoader.displayImage(imageUrl, target, progressBar)
 
+To cache the api response, i have created OkHttpClient with cache request, So that retrofit can cahce the response in cache
+
 That's it.
