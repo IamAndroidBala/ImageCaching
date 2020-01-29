@@ -1,6 +1,7 @@
 package com.android.imagecaching.ui.userlistscreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import com.android.imagecaching.ImageCacherApplication
 import com.android.imagecaching.R
 import com.android.imagecaching.model.UserListModel
 import com.android.imagecaching.ui.BaseActivity
+import com.android.imagecaching.utils.AppLog
 import com.android.imagecaching.utils.PaginationListener
 import com.android.imagecaching.utils.errorDialog
 import com.google.android.material.snackbar.Snackbar
@@ -22,13 +24,14 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
 
     var isLoad      = false
     var isLast      = false
+    var doLoadPage  = true
     var totalPage   = 1
     var currentPage = PaginationListener.PAGE_START
 
     var mList = ArrayList<UserListModel>()
-    private var mSnackBar   : Snackbar? = null
-    lateinit var userListAdapter   : UserListAdapter
-    lateinit var layoutManager: LinearLayoutManager
+    private var mSnackBar : Snackbar? = null
+    lateinit var userListAdapter : UserListAdapter
+    lateinit var layoutManager : LinearLayoutManager
     @Inject lateinit var imageLoaderPresenter : UserListLoadingPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,8 +89,11 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
      * setup the page
      */
     private fun initPage() {
-        imageLoaderPresenter.setPage(this)
-        imageLoaderPresenter.setLoading()
+        if(doLoadPage) {
+            imageLoaderPresenter.setPage(this)
+            imageLoaderPresenter.setLoading()
+        }
+        doLoadPage = false
     }
 
     /**
@@ -111,6 +117,7 @@ class UserListActivity : BaseActivity(), UserLoadingViews {
         if(permissionsGranted(permissionsStorage)) initPage() else askPermission()
 
     }
+
 
     /**
      * display progressbar
