@@ -4,10 +4,18 @@
 
 I have used <Strong> Dagger 2 </Strong> and <Strong> Retrofit 2 </Strong> for Dependancy injection and Network API calls 
 
-I have created a module for caching images from API. This module can be accessed simply from where in this app.
 
+<h2>How to use in app<h2>
+  
+```
 val imageLoader = ImageLoader(this)
 imageLoader.displayImage(imageUrl, target, progressBar)
+```
+<h2>Add in your app<h2>
+  
+  ```
+  implementation 'com.github.IamAndroidBala:ImageCaching:V1.0'
+  ```
 
 To cache the api response, i have created OkHttpClient with cache request, So that retrofit can cahce the response in cache
 
